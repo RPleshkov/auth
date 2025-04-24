@@ -1,7 +1,7 @@
 from enum import Enum
 from typing import TYPE_CHECKING
 
-from sqlalchemy.dialects.postgresql import BYTEA, CITEXT
+from sqlalchemy.dialects.postgresql import BYTEA
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.models import Base
@@ -23,7 +23,7 @@ class User(Base, CreatedAtMixin, UpdatedAtMixin):
     __tablename__ = "users"
 
     name: Mapped[str] = mapped_column()
-    email: Mapped[str] = mapped_column(CITEXT, unique=True, index=True)
+    email: Mapped[str] = mapped_column(unique=True, index=True)
     password: Mapped[bytes] = mapped_column(BYTEA)
     role: Mapped[UserRole] = mapped_column(default=UserRole.user)
     is_active: Mapped[bool] = mapped_column(default=True)
