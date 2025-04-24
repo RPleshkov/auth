@@ -1,4 +1,5 @@
 from dataclasses import dataclass, field
+from pathlib import Path
 
 from environs import Env
 from pydantic import PostgresDsn
@@ -46,14 +47,35 @@ class PostgresConfig:
         )
 
 
+CERTS_PATH = Path(__file__).parent / "certs"
+
+
+@dataclass
+class JWTConfig:
+    algorithm: str = "RS256"
+    access_token_expire_minutes: int = 15
+    refresh_token_expire_days: int = 7
+
+
+@dataclass(frozen=True, repr=False)
+class SecurityConfig:
+    jwt: JWTConfig
+    private_key: Path = CERTS_PATH / "private.pem"
+    public_key: Path = CERTS_PATH / "public.pem"
+
+
 @dataclass
 class Config:
 
     postgres: PostgresConfig
+    security: SecurityConfig
 
     api_v1_prefix: str = "/api/v1"
 
 
 settings = Config(
     postgres=PostgresConfig(),
+    security=SecurityConfig(
+        jwt=JWTConfig(),
+    ),
 )
