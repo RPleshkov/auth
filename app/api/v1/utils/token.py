@@ -45,9 +45,9 @@ class TokenManager:
         self._update_iat_and_exp(to_encode)
         self._generate_jti()
 
-        to_encode.update(jti=self.jti, iat=self.iat, exp=self.exp)
+        to_encode.update(jti=str(self.jti), iat=self.iat, exp=self.exp)
         token = jwt.encode(
-            payload=payload, key=self.private_key, algorithm=self.algorithm
+            payload=to_encode, key=self.private_key, algorithm=self.algorithm
         )
         return token
 
