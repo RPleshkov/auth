@@ -10,6 +10,7 @@ dependencies = [
     "bcrypt>=4.3.0",
     "environs>=14.1.1",
     "fastapi[standard]>=0.115.12",
+    "pyjwt[crypto]>=2.10.1",
     "sqlalchemy[asyncio]>=2.0.40",
 ]
 
