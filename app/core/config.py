@@ -51,6 +51,8 @@ class Config:
 
     postgres: PostgresConfig
 
+    api_v1_prefix: str = "/api/v1"
+
 
 settings = Config(
     postgres=PostgresConfig(),
