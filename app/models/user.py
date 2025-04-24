@@ -1,7 +1,7 @@
 import uuid
 from enum import Enum
 
-from sqlalchemy.dialects.postgresql import BYTEA, CITEXT, UUID
+from sqlalchemy.dialects.postgresql import BYTEA, CITEXT
 from sqlalchemy.orm import Mapped, mapped_column
 
 from app.models import Base
@@ -18,9 +18,6 @@ class User(Base, CreatedAtMixin, UpdatedAtMixin):
 
     __tablename__ = "users"
 
-    id: Mapped[uuid.UUID] = mapped_column(
-        UUID(as_uuid=True), primary_key=True, default=uuid.uuid4()
-    )
     name: Mapped[str] = mapped_column()
     email: Mapped[str] = mapped_column(CITEXT, unique=True, index=True)
     password: Mapped[bytes] = mapped_column(BYTEA)
