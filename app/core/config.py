@@ -16,6 +16,10 @@ class PostgresConfig:
     username: str = env("POSTGRES_USERNAME")
     password: str = env("POSTGRES_PASSWORD")
 
+    pool_size: int = 50
+    max_overflow: int = 10
+    echo: bool = False
+
     @property
     def get_url(self) -> str:
         return str(
